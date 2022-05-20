@@ -13,7 +13,7 @@ namespace GameEventSystem
 
         #region Public Methods
 
-        public void Subscribe(Action action)
+        public void Subscribe(Action action) 
         {
             OnInvoke += action;
         }
