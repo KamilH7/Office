@@ -29,6 +29,7 @@ namespace UI
         #region Private Fields
 
         private IEnumerator textBlinkCoroutine;
+        private bool coroutineRunning;
 
         #endregion
 
@@ -78,30 +79,32 @@ namespace UI
 
         private void RestartTextBlinkCoroutine(string text)
         {
-            if (textBlinkCoroutine != null)
+            
+            if (coroutineRunning)
             {
                 StopCoroutine(textBlinkCoroutine);
             }
 
             textBlinkCoroutine = BlinkHealthChangeText(text);
-            StartCoroutine(textBlinkCoroutine);
+            
+            StartCoroutine(BlinkHealthChangeText(text));
         }
 
         private IEnumerator BlinkHealthChangeText(string text)
         {
+            coroutineRunning = true;
             healthChangeText.text = text;
             EnableHealthChangeText();
 
             yield return new WaitForSeconds(1);
 
             DisableHealthChangeText();
-
-            textBlinkCoroutine = null;
+            coroutineRunning = false;
         }
 
         private void DisableHealthChangeText()
         {
-            //healthChangeText.enabled = false;
+            healthChangeText.enabled = false;
         }
 
         private void EnableHealthChangeText()

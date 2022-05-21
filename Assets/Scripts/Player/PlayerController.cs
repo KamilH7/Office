@@ -13,14 +13,10 @@ namespace Player
         [SerializeField]
         private BulletController bulletPrefab;
         [SerializeField]
-        private PlayerData playerData;
-        [SerializeField]
         private GameCameraData gameCameraData;
         
         [Header("Listening To:"), SerializeField]
         private FingerDown fingerDown;
-        [SerializeField]
-        private GameStarted gameStarted;
 
         #endregion
 
@@ -40,11 +36,6 @@ namespace Player
 
         #region Private Methods
 
-        private void InitializePlayerData()
-        {
-            playerData.Initialize();
-        }
-
         private void Shoot()
         {
             BulletController bullet = Instantiate(bulletPrefab);
@@ -54,13 +45,11 @@ namespace Player
         private void AssignEvents()
         {
             fingerDown.Subscribe(Shoot);
-            gameStarted.Subscribe(InitializePlayerData);
         }
 
         private void UnAssignEvents()
         {
             fingerDown.UnSubscribe(Shoot);
-            gameStarted.Subscribe(InitializePlayerData);
         }
 
         #endregion

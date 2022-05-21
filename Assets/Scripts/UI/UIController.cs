@@ -17,8 +17,6 @@ public class UIController : MonoBehaviour
     private GameStarted gameStarted;
     [SerializeField]
     private GameEnded gameEnded;
-    [SerializeField]
-    private FingerUp fingerUp;
 
     #endregion
 
@@ -36,7 +34,6 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        EnableInput();
         EnablePreGameUI();
     }
 
@@ -46,13 +43,11 @@ public class UIController : MonoBehaviour
 
     private void GameStarted()
     {
-        DisableInput();
         EnableInGameUI();
     }
 
     private void GameEnded(int finalScore)
     {
-        EnableInput();
         EnablePostGameUI();
     }
 
@@ -75,16 +70,6 @@ public class UIController : MonoBehaviour
         preGameUI.gameObject.SetActive(false);
         inGameUI.gameObject.SetActive(false);
         postGameUI.gameObject.SetActive(true);
-    }
-
-    private void EnableInput()
-    {
-        fingerUp.Subscribe(GameStarted);
-    }
-
-    private void DisableInput()
-    {
-        fingerUp.UnSubscribe(GameStarted);
     }
 
     private void AssignCallbacks()
