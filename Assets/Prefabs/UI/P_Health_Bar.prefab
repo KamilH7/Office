@@ -89,8 +89,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -21.312}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2.7000122, y: -9}
-  m_SizeDelta: {x: 79.22101, y: -6}
+  m_AnchoredPosition: {x: 23.75, y: 3.3999996}
+  m_SizeDelta: {x: 125.637314, y: 71.03405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2275061401953519079
 CanvasRenderer:
@@ -146,12 +146,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 112.35
   m_fontSizeBase: 72.88
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 1000
   m_fontStyle: 1
   m_textAlignment: 257
   m_characterSpacing: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -28.33246, z: 0.41096824, w: -10.4140215}
+  m_margin: {x: 0, y: 0.21731167, z: 0.41096824, w: 0.26504707}
   m_textInfo:
     textComponent: {fileID: 2275061401953519078}
     characterCount: 2
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.561
+  m_FillAmount: 0.41
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -293,7 +293,6 @@ GameObject:
   - component: {fileID: 2275061403466960769}
   - component: {fileID: 2275061403466960771}
   - component: {fileID: 2275061403466960770}
-  - component: {fileID: 2275061403466960780}
   m_Layer: 5
   m_Name: Background_Image
   m_TagString: Untagged
@@ -356,16 +355,3 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &2275061403466960780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2275061403466960768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
