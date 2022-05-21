@@ -51,6 +51,7 @@ namespace EnemySystem.Slots
 
         private void UnAssignEnemy()
         {
+            spotlight.enabled = false;
             assignedEnemy = null;
             IsOccupied = false;
         }
