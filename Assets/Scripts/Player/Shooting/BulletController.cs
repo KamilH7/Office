@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using EnemySystem;
+using Helpers;
 using UnityEngine;
 
 namespace Player.Shooting
@@ -41,7 +42,7 @@ namespace Player.Shooting
 
             if (other.IsEnemy())
             {
-                //Damage the enemy here
+                other.GetComponent<BaseEnemyController>().HitByPlayer();
             }
         }
 
@@ -66,8 +67,8 @@ namespace Player.Shooting
         private void MoveBullet()
         {
             downwardPull += gravityValue * Time.deltaTime;
-            Vector3 moveVector = bulletTransform.forward * travelSpeed * Time.deltaTime;
-            moveVector += Vector3.up * downwardPull * Time.deltaTime;
+            Vector3 moveVector = bulletTransform.forward * (travelSpeed * Time.deltaTime);
+            moveVector += Vector3.up * (downwardPull * Time.deltaTime);
             bulletTransform.position += moveVector;
         }
 
