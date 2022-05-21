@@ -12,18 +12,17 @@ namespace GameEventSystem
         #endregion
 
         #region Public Methods
-        
-        
+
         public void Subscribe(Action<T> action)
         {
             OnInvoke += action;
         }
-        
+
         public void UnSubscribe(Action<T> action)
         {
             OnInvoke -= action;
         }
-        
+
         public virtual void Invoke(T parameter)
         {
             OnInvoke?.Invoke(parameter);

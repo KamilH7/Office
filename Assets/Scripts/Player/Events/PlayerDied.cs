@@ -4,8 +4,7 @@ using UnityEngine;
 namespace Player.Events
 {
     [CreateAssetMenu(fileName = "PlayerDied", menuName = "SO/Player/Events/PlayerDied")]
-    public class PlayerDied : GameEvent
+    public class PlayerDied : GameEventWithParameter<int>
     {
-
     }
 }

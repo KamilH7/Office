@@ -23,19 +23,17 @@ namespace Player
         #region Private Fields
 
         private int currentHealth;
-
-        #endregion
-
-        #region Unity Callbacks
-
-        private void OnValidate()
-        {
-            currentHealth = maxHealth;
-        }
+        private int currentScore;
 
         #endregion
 
         #region Public Methods
+
+        public void Initialize()
+        {
+            currentHealth = maxHealth;
+            currentScore = 0;
+        }
 
         public void ChangeHealth(int changeAmount)
         {
@@ -48,13 +46,17 @@ namespace Player
 
                 if (currentHealth == 0)
                 {
-                    playerDied.Invoke();
+                    playerDied.Invoke(currentScore);
                 }
             }
             else if (changeAmount < 0)
             {
                 playerHealed.Invoke(changeAmount);
             }
+        }
+
+        public void AddScore(int amount)
+        {
         }
 
         public float GetHealthPercentage()
