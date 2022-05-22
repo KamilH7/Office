@@ -19,6 +19,8 @@ namespace Player
         private PlayerHealed playerHealed;
         [SerializeField]
         private PlayerDied playerDied;
+        [SerializeField]
+        private ScoreChanged scoreChanged;
 
         #endregion
 
@@ -43,18 +45,18 @@ namespace Player
         {
             CurrentHealth += changeAmount;
 
-            Mathf.Clamp(CurrentHealth, 0, maxHealth);
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
 
-            if (changeAmount > 0)
+            if (changeAmount < 0)
             {
                 playerDamaged.Invoke(changeAmount);
 
                 if (CurrentHealth == 0)
                 {
-                    playerDied.Invoke(CurrentScore);
+                    playerDied.Invoke();
                 }
             }
-            else if (changeAmount < 0)
+            else if (changeAmount > 0)
             {
                 playerHealed.Invoke(changeAmount);
             }
@@ -63,6 +65,7 @@ namespace Player
         public void AddScore(int amount)
         {
             CurrentScore += amount;
+            scoreChanged.Invoke(CurrentScore);
         }
 
         public float GetHealthPercentage()

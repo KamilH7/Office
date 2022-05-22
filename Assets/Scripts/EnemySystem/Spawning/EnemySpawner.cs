@@ -1,4 +1,6 @@
 ﻿using EnemySystem.Slots;
+using Game.Events;
+using GameManagement;
 using UnityEngine;
 
 namespace EnemySystem.Spawning
@@ -18,6 +20,8 @@ namespace EnemySystem.Spawning
 
         [SerializeField, Header("Listening To")]
         private RequestNewSlot requestNewSlot;
+        [SerializeField]
+        private GameEnded gameEnded;
 
         #endregion
 
@@ -25,7 +29,6 @@ namespace EnemySystem.Spawning
 
         private float currentDifficulty = 1;
         private float currentSpawnTimer;
-
         private float timer;
 
         #endregion
@@ -44,27 +47,37 @@ namespace EnemySystem.Spawning
 
         private void Start()
         {
-            currentSpawnTimer = baseSpawnTimer;
-            slotManager.ClearAllSlots();
+            ResetValues();
         }
 
         private void Update()
         {
-            currentDifficulty += currentDifficulty * difficultyIncreaseRate * Time.deltaTime;
-
-            timer += Time.deltaTime;
-
-            if (timer >= currentSpawnTimer)
+            if (GameLoop.isGameRunning)
             {
-                TrySpawnEnemy();
-                timer = 0;
-                currentSpawnTimer = baseSpawnTimer / currentDifficulty;
+                currentDifficulty += currentDifficulty * difficultyIncreaseRate * Time.deltaTime;
+
+                timer += Time.deltaTime;
+
+                if (timer >= currentSpawnTimer)
+                {
+                    TrySpawnEnemy();
+                    timer = 0;
+                    currentSpawnTimer = baseSpawnTimer / currentDifficulty;
+                }
             }
         }
 
         #endregion
 
         #region Private Methods
+
+        private void ResetValues()
+        {
+            timer = 0;
+            currentDifficulty = 1;
+            currentSpawnTimer = baseSpawnTimer;
+            slotManager.ClearAllSlots();
+        }
 
         private void TrySpawnEnemy()
         {
@@ -92,6 +105,7 @@ namespace EnemySystem.Spawning
         private void AssignCallbacks()
         {
             requestNewSlot.Subscribe(RepositionEnemy);
+            gameEnded.Subscribe(ResetValues);
         }
 
         private void UnAssignCallbacks()

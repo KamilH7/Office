@@ -1,4 +1,5 @@
 ﻿using GameCamera;
+using GameManagement;
 using InputSystem.Events;
 using Player.Shooting;
 using UnityEngine;
@@ -37,8 +38,11 @@ namespace Player
 
         private void Shoot()
         {
-            BulletController bullet = Instantiate(bulletPrefab);
-            bullet.Initialize(transform.position, gameCameraData.CameraPointingDirection);
+            if (GameLoop.isGameRunning)
+            {
+                BulletController bullet = Instantiate(bulletPrefab);
+                bullet.Initialize(transform.position, gameCameraData.CameraPointingDirection);
+            }
         }
 
         private void AssignEvents()

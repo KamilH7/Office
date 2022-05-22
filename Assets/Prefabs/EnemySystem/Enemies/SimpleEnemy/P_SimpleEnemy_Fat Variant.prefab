@@ -112,6 +112,11 @@ PrefabInstance:
       propertyPath: baseDamage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6230461897523148307, guid: c2bad56fdcabb49499047f5dc8217540,
+        type: 3}
+      propertyPath: scoreForShooting
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6497833770856804620, guid: c2bad56fdcabb49499047f5dc8217540,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

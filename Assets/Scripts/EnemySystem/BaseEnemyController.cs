@@ -19,6 +19,8 @@ namespace EnemySystem
         [SerializeField]
         protected int baseDamage;
         [SerializeField]
+        protected int scoreForShooting;
+        [SerializeField]
         protected Transform enemyTransform;
         [SerializeField]
         protected PlayerData playerData;
@@ -50,6 +52,7 @@ namespace EnemySystem
 
         public virtual void HitByPlayer(float damage)
         {
+            playerData.AddScore(scoreForShooting);
             FreeCurrentSlot();
             Destroy(gameObject);
         }

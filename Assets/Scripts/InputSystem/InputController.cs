@@ -18,11 +18,6 @@ namespace InputSystem
         {
             if (IsTouching && !fingerDownInvoked)
             {
-                if (fingerDown == null)
-                {
-                    Debug.Log("ASD");
-                }
-
                 fingerDown.Invoke();
                 fingerDownInvoked = true;
             }

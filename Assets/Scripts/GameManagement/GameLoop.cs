@@ -1,4 +1,5 @@
 ﻿using Game.Events;
+using GameManagement.Events;
 using InputSystem.Events;
 using Player;
 using Player.Events;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace GameManagement
 {
-    public class GameManager : MonoBehaviour
+    public class GameLoop : MonoBehaviour
     {
         #region Serialized Fields
 
@@ -21,13 +22,15 @@ namespace GameManagement
         [Header("Broadcasting On"), SerializeField]
         private GameStarted gameStarted;
         [SerializeField]
+        private GameToStartScreen gameToStartScreen;
+        [SerializeField]
         private GameEnded gameEnded;
 
         #endregion
 
-        #region Public Properties
+        #region Constants
 
-        public static bool IsRunning { get; private set; }
+        public static bool isGameRunning;
 
         #endregion
 
@@ -43,34 +46,46 @@ namespace GameManagement
             UnAssignEvents();
         }
 
+        private void Start()
+        {
+            SetupPreGame();
+        }
+
         #endregion
 
         #region Private Methods
 
-        private void StartGame()
+        private void SetupPreGame()
         {
-            IsRunning = true;
+            fingerUp.UnSubscribe(SetupPreGame);
+            fingerUp.Subscribe(SetupInGame);
             playerData.RestartPlayerValues();
-            gameStarted.Invoke();
-            fingerUp.UnSubscribe(StartGame);
+            gameToStartScreen.Invoke();
         }
 
-        private void EndGame(int playerScore)
+        private void SetupInGame()
         {
-            IsRunning = false;
-            gameEnded.Invoke(playerScore);
-            fingerUp.Subscribe(StartGame);
+            fingerUp.UnSubscribe(SetupInGame);
+            isGameRunning = true;
+            playerData.RestartPlayerValues();
+            gameStarted.Invoke();
+        }
+
+        private void SetupPostGame()
+        {
+            isGameRunning = false;
+            gameEnded.Invoke();
+            fingerUp.Subscribe(SetupPreGame);
         }
 
         private void AssignEvents()
         {
-            playerDied.Subscribe(EndGame);
-            fingerUp.Subscribe(StartGame);
+            playerDied.Subscribe(SetupPostGame);
         }
 
         private void UnAssignEvents()
         {
-            playerDied.UnSubscribe(EndGame);
+            playerDied.UnSubscribe(SetupPostGame);
         }
 
         #endregion

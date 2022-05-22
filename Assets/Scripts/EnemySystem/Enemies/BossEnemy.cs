@@ -46,6 +46,7 @@ namespace EnemySystem.Enemies
             {
                 FreeCurrentSlot();
                 Destroy(gameObject);
+                playerData.AddScore(scoreForShooting);
             }
             else
             {

@@ -17,3 +17,4 @@ MonoBehaviour:
   playerDamaged: {fileID: 11400000, guid: e44ac5dd11360854b9c5e679946f0ff0, type: 2}
   playerHealed: {fileID: 11400000, guid: 3e5cc9cf62132f5479421a3eb0f6b70a, type: 2}
   playerDied: {fileID: 11400000, guid: c9f2d715028d5284580e623cbe617e17, type: 2}
+  scoreChanged: {fileID: 11400000, guid: d57203aae4be632408d4327d55196884, type: 2}

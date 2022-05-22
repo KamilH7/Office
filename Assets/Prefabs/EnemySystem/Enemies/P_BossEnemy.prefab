@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamageTimer: 5
   baseDamage: 25
+  scoreForShooting: 3
   enemyTransform: {fileID: 1561250948125695221}
   playerData: {fileID: 11400000, guid: 7ca9f005ceacae84bb0ce066090eabe3, type: 2}
   maxHealth: 100

@@ -41,9 +41,13 @@ namespace EnemySystem.Slots
 
         public void ClearSpot()
         {
-            assignedEnemy.FreeCurrentSlot();
-            Destroy(assignedEnemy.gameObject);
             spotlight.enabled = false;
+
+            if (assignedEnemy != null)
+            {
+                assignedEnemy.FreeCurrentSlot();
+                Destroy(assignedEnemy.gameObject);
+            }
         }
 
         #endregion
@@ -53,7 +57,6 @@ namespace EnemySystem.Slots
         private void UnAssignEnemy()
         {
             spotlight.enabled = false;
-            assignedEnemy = null;
             IsOccupied = false;
         }
 
