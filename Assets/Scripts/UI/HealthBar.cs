@@ -12,6 +12,8 @@ namespace UI
         #region Serialized Fields
 
         [SerializeField]
+        private float textBlinkTime = 0.5f;
+        [SerializeField]
         private PlayerData playerData;
 
         [Header("UI References"), SerializeField, Space(10)]
@@ -28,8 +30,7 @@ namespace UI
 
         #region Private Fields
 
-        private IEnumerator textBlinkCoroutine;
-        private bool coroutineRunning;
+        private Coroutine textBlinkCoroutine;
 
         #endregion
 
@@ -38,16 +39,12 @@ namespace UI
         private void OnEnable()
         {
             AssignCallbacks();
+            RestartHealthBar();
         }
 
         private void OnDisable()
         {
             UnAssignCallbacks();
-        }
-
-        private void Start()
-        {
-            RestartHealthBar();
         }
 
         #endregion
@@ -63,13 +60,13 @@ namespace UI
         private void PlayerHealthIncreased(float changeAmount)
         {
             UpdateHealthBar();
-            RestartTextBlinkCoroutine($"+{changeAmount}");
+            BlinkText($"+{changeAmount}");
         }
 
         private void PlayerHealthDecreased(float changeAmount)
         {
             UpdateHealthBar();
-            RestartTextBlinkCoroutine($"{changeAmount}");
+            BlinkText($"{changeAmount}");
         }
 
         private void UpdateHealthBar()
@@ -77,28 +74,25 @@ namespace UI
             fillImage.fillAmount = playerData.GetHealthPercentage();
         }
 
-        private void RestartTextBlinkCoroutine(string text)
+        private void BlinkText(string text)
         {
-            if (coroutineRunning)
+            if (textBlinkCoroutine != null)
             {
                 StopCoroutine(textBlinkCoroutine);
             }
 
-            textBlinkCoroutine = BlinkHealthChangeText(text);
-
-            StartCoroutine(BlinkHealthChangeText(text));
+            textBlinkCoroutine = StartCoroutine(BlinkHealthChangeText(text));
         }
 
         private IEnumerator BlinkHealthChangeText(string text)
         {
-            coroutineRunning = true;
             healthChangeText.text = text;
             EnableHealthChangeText();
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(textBlinkTime);
 
             DisableHealthChangeText();
-            coroutineRunning = false;
+            textBlinkCoroutine = null;
         }
 
         private void DisableHealthChangeText()
@@ -113,14 +107,14 @@ namespace UI
 
         private void AssignCallbacks()
         {
-            playerDamaged.Subscribe(PlayerHealthIncreased);
-            playerHealed.Subscribe(PlayerHealthDecreased);
+            playerDamaged.Subscribe(PlayerHealthDecreased);
+            playerHealed.Subscribe(PlayerHealthIncreased);
         }
 
         private void UnAssignCallbacks()
         {
-            playerDamaged.UnSubscribe(PlayerHealthIncreased);
-            playerHealed.UnSubscribe(PlayerHealthDecreased);
+            playerDamaged.UnSubscribe(PlayerHealthDecreased);
+            playerHealed.UnSubscribe(PlayerHealthIncreased);
         }
 
         #endregion
