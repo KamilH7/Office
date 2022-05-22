@@ -9,7 +9,8 @@ namespace Player.Shooting
         #region Serialized Fields
 
         [SerializeField]
-        private GameObject bulletModel;
+        private PlayerData playerData;
+
         [SerializeField, Range(1, 20)]
         private float travelSpeed;
         [SerializeField]
@@ -42,7 +43,7 @@ namespace Player.Shooting
 
             if (other.IsEnemy())
             {
-                other.GetComponent<BaseEnemyController>().HitByPlayer();
+                other.GetComponent<BaseEnemyController>().HitByPlayer(playerData.CurrentDamage);
             }
         }
 

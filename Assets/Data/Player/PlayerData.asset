@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 553cde767241ac84e82860d6e2f54e42, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDamage: 25
   playerDamaged: {fileID: 11400000, guid: e44ac5dd11360854b9c5e679946f0ff0, type: 2}
   playerHealed: {fileID: 11400000, guid: 3e5cc9cf62132f5479421a3eb0f6b70a, type: 2}
   playerDied: {fileID: 11400000, guid: c9f2d715028d5284580e623cbe617e17, type: 2}
-  maxHealth: 100

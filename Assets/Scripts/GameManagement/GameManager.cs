@@ -25,6 +25,8 @@ namespace GameManagement
 
         #endregion
 
+        public static bool IsRunning { get; private set; }
+
         #region Unity Callbacks
 
         private void OnEnable()
@@ -43,15 +45,17 @@ namespace GameManagement
 
         private void StartGame()
         {
-            playerData.Initialize();
+            IsRunning = true;
+            playerData.RestartPlayerValues();
             gameStarted.Invoke();
             fingerUp.UnSubscribe(StartGame);
         }
 
         private void EndGame(int playerScore)
         {
+            IsRunning = false;
             gameEnded.Invoke(playerScore);
-            fingerUp.UnSubscribe(StartGame);
+            fingerUp.Subscribe(StartGame);
         }
 
         private void AssignEvents()

@@ -1,5 +1,4 @@
 ﻿using EnemySystem.Slots;
-using Unity.Collections;
 using UnityEngine;
 
 namespace EnemySystem.Spawning
@@ -11,28 +10,38 @@ namespace EnemySystem.Spawning
         [SerializeField]
         private float baseSpawnTimer = 5;
         [SerializeField]
-        private float minSpawnTimer = 1;
-        [SerializeField]
         private float difficultyIncreaseRate = 0.001f;
         [SerializeField]
         private SlotManager slotManager;
         [SerializeField]
         private SpawnTable spawnTable;
-        
-        [SerializeField]
-        private float currentDifficulty = 1;
-        [SerializeField]
-        private float currentSpawnTimer;
 
+        [SerializeField]
+        [Header("Listening To")]
+        private RequestNewSlot requestNewSlot;
+        
         #endregion
 
         #region Private Fields
+
+        private float currentDifficulty = 1;
+        private float currentSpawnTimer;
 
         private float timer;
 
         #endregion
 
         #region Unity Callbacks
+
+        private void OnEnable()
+        {
+            AssignCallbacks();
+        }
+
+        private void OnDisable()
+        {
+            UnAssignCallbacks();
+        }
 
         private void Start()
         {
@@ -68,6 +77,27 @@ namespace EnemySystem.Spawning
                 spawnSlot.AssignEnemy(enemy);
                 enemy.Initialize(currentDifficulty);
             }
+        }
+
+        private void RepositionEnemy(BaseEnemyController invokerEnemy)
+        {
+            SpawnSlot spawnSlot = slotManager.TryGetRandomFreeSpawnSlot();
+
+            if (spawnSlot)
+            {
+                invokerEnemy.FreeCurrentSlot();
+                spawnSlot.AssignEnemy(invokerEnemy);
+            }
+        }
+
+        void AssignCallbacks()
+        {
+            requestNewSlot.Subscribe(RepositionEnemy);
+        }
+
+        void UnAssignCallbacks()
+        {
+            requestNewSlot.UnSubscribe(RepositionEnemy);
         }
 
         #endregion

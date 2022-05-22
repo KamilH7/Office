@@ -10,6 +10,8 @@ namespace Player
 
         [SerializeField, Header("Settings")]
         private int maxHealth;
+        [SerializeField]
+        private int baseDamage;
 
         [SerializeField, Header("Broadcasting On")]
         private PlayerDamaged playerDamaged;
@@ -20,33 +22,36 @@ namespace Player
 
         #endregion
 
-        #region Private Fields
+        #region Public Properties
 
-        private int currentHealth;
-        private int currentScore;
+        public int CurrentHealth { get; private set; }
+        public int CurrentScore { get; private set; }
+        public int CurrentDamage { get; private set; }
 
         #endregion
 
         #region Public Methods
 
-        public void Initialize()
+        public void RestartPlayerValues()
         {
-            currentHealth = maxHealth;
-            currentScore = 0;
+            CurrentScore = 0;
+            CurrentHealth = maxHealth;
+            CurrentDamage = baseDamage;
         }
 
         public void ChangeHealth(int changeAmount)
         {
-            currentHealth += changeAmount;
-            Mathf.Clamp(currentHealth, 0, maxHealth);
+            CurrentHealth += changeAmount;
+
+            Mathf.Clamp(CurrentHealth, 0, maxHealth);
 
             if (changeAmount > 0)
             {
                 playerDamaged.Invoke(changeAmount);
 
-                if (currentHealth == 0)
+                if (CurrentHealth == 0)
                 {
-                    playerDied.Invoke(currentScore);
+                    playerDied.Invoke(CurrentScore);
                 }
             }
             else if (changeAmount < 0)
@@ -57,11 +62,12 @@ namespace Player
 
         public void AddScore(int amount)
         {
+            CurrentScore += amount;
         }
 
         public float GetHealthPercentage()
         {
-            return (float) currentHealth / maxHealth;
+            return (float) CurrentHealth / maxHealth;
         }
 
         #endregion

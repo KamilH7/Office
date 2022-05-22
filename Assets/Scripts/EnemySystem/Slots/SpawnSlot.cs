@@ -28,7 +28,7 @@ namespace EnemySystem.Slots
             if (!IsOccupied)
             {
                 spotlight.enabled = true;
-                enemy.OnEnemyKilled += UnAssignEnemy;
+                enemy.OnReleasedFromCurrentSpot += UnAssignEnemy;
                 enemy.PositionEnemy(spotEnemyTransform);
                 assignedEnemy = enemy;
                 IsOccupied = true;
@@ -41,7 +41,8 @@ namespace EnemySystem.Slots
 
         public void ClearSpot()
         {
-            assignedEnemy.KillEnemy();
+            assignedEnemy.FreeCurrentSlot();
+            Destroy(assignedEnemy.gameObject);
             spotlight.enabled = false;
         }
 

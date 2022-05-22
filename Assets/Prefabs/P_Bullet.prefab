@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4686cf8af1bd357439c843f22f2efb50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 7ca9f005ceacae84bb0ce066090eabe3, type: 2}
   bulletModel: {fileID: 8522358551316793365}
   travelSpeed: 20
   gravityValue: -0.5
