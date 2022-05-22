@@ -1,5 +1,4 @@
 ﻿using EnemySystem.Slots;
-using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,18 +8,22 @@ namespace EnemySystem.Enemies
     {
         #region Serialized Fields
 
-        [Header("Boss Enemy Settings")]
-        [SerializeField]
+        [Header("Boss Enemy Settings"), SerializeField]
         private float maxHealth = 40;
         [SerializeField]
         private Image healthBarFillImage;
         [SerializeField]
         private RequestNewSlot requestNewSlot;
-        
-        private float currentHealth;
+
         #endregion
 
-        #region Public Methods
+        #region Private Fields
+
+        private float currentHealth;
+
+        #endregion
+
+        #region Unity Callbacks
 
         private void Start()
         {
@@ -28,13 +31,17 @@ namespace EnemySystem.Enemies
             UpdateHealthBar();
         }
 
+        #endregion
+
+        #region Public Methods
+
         public override void HitByPlayer(float damage)
         {
             currentHealth -= damage;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
             UpdateHealthBar();
-            
+
             if (currentHealth == 0)
             {
                 FreeCurrentSlot();
@@ -46,10 +53,15 @@ namespace EnemySystem.Enemies
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void UpdateHealthBar()
         {
             healthBarFillImage.fillAmount = currentHealth / maxHealth;
         }
+
         private void TryTeleporting()
         {
             requestNewSlot.Invoke(this);

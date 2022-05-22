@@ -1,5 +1,4 @@
-﻿using Game.Events;
-using GameCamera;
+﻿using GameCamera;
 using InputSystem.Events;
 using Player.Shooting;
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace Player
         private BulletController bulletPrefab;
         [SerializeField]
         private GameCameraData gameCameraData;
-        
+
         [Header("Listening To:"), SerializeField]
         private FingerDown fingerDown;
 
@@ -39,7 +38,7 @@ namespace Player
         private void Shoot()
         {
             BulletController bullet = Instantiate(bulletPrefab);
-            bullet.Initialize(transform.position,gameCameraData.CameraPointingDirection);
+            bullet.Initialize(transform.position, gameCameraData.CameraPointingDirection);
         }
 
         private void AssignEvents()

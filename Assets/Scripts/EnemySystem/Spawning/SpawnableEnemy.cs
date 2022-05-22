@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 
 namespace EnemySystem.Spawning
 {
-    [System.Serializable]
+    [Serializable]
     public class SpawnableEnemy
     {
         public BaseEnemyController prefab;

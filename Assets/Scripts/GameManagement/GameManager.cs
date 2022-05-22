@@ -12,7 +12,7 @@ namespace GameManagement
 
         [SerializeField]
         private PlayerData playerData;
-        
+
         [Header("Listening To"), SerializeField]
         private PlayerDied playerDied;
         [SerializeField]
@@ -25,7 +25,11 @@ namespace GameManagement
 
         #endregion
 
+        #region Public Properties
+
         public static bool IsRunning { get; private set; }
+
+        #endregion
 
         #region Unity Callbacks
 

@@ -16,10 +16,9 @@ namespace EnemySystem.Spawning
         [SerializeField]
         private SpawnTable spawnTable;
 
-        [SerializeField]
-        [Header("Listening To")]
+        [SerializeField, Header("Listening To")]
         private RequestNewSlot requestNewSlot;
-        
+
         #endregion
 
         #region Private Fields
@@ -90,12 +89,12 @@ namespace EnemySystem.Spawning
             }
         }
 
-        void AssignCallbacks()
+        private void AssignCallbacks()
         {
             requestNewSlot.Subscribe(RepositionEnemy);
         }
 
-        void UnAssignCallbacks()
+        private void UnAssignCallbacks()
         {
             requestNewSlot.UnSubscribe(RepositionEnemy);
         }

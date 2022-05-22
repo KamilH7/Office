@@ -1,5 +1,4 @@
 ﻿using Game.Events;
-using InputSystem.Events;
 using UnityEngine;
 
 public class UIController : MonoBehaviour

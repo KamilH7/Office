@@ -1,11 +1,7 @@
-﻿using Player;
-using UnityEngine;
-
-namespace EnemySystem.Enemies
+﻿namespace EnemySystem.Enemies
 {
     public class SimpleEnemy : BaseEnemyController
     {
-
         #region Public Methods
 
         public override void Initialize(float difficulty)

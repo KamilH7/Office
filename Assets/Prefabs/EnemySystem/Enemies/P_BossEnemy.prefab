@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946daa56da9e12f49a03e30e5da18098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamageTimer: 10
-  baseDamage: 5
+  baseDamageTimer: 5
+  baseDamage: 25
   enemyTransform: {fileID: 1561250948125695221}
   playerData: {fileID: 11400000, guid: 7ca9f005ceacae84bb0ce066090eabe3, type: 2}
   maxHealth: 100

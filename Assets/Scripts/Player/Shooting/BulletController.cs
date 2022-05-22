@@ -27,7 +27,6 @@ namespace Player.Shooting
         #endregion
 
         #region Unity Callbacks
-        
 
         private void Update()
         {
@@ -54,7 +53,7 @@ namespace Player.Shooting
         public void Initialize(Vector3 origin, Vector3 direction)
         {
             bulletTransform = transform;
-            
+
             bulletTransform.position = origin;
             bulletTransform.forward = direction;
 

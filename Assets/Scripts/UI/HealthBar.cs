@@ -79,14 +79,13 @@ namespace UI
 
         private void RestartTextBlinkCoroutine(string text)
         {
-            
             if (coroutineRunning)
             {
                 StopCoroutine(textBlinkCoroutine);
             }
 
             textBlinkCoroutine = BlinkHealthChangeText(text);
-            
+
             StartCoroutine(BlinkHealthChangeText(text));
         }
 
