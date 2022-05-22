@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpTransform: {fileID: 6306886495935355017}
+  rotationSpeed: 25
   healAmount: 25
   playerData: {fileID: 11400000, guid: 7ca9f005ceacae84bb0ce066090eabe3, type: 2}
 --- !u!1 &6491352727161492742
