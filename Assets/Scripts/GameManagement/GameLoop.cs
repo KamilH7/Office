@@ -1,4 +1,6 @@
-﻿using Game.Events;
+﻿using System;
+using System.Collections;
+using Game.Events;
 using GameManagement.Events;
 using InputSystem.Events;
 using Player;
@@ -13,6 +15,8 @@ namespace GameManagement
 
         [SerializeField]
         private PlayerData playerData;
+        [SerializeField]
+        private float inputDelay;
 
         [Header("Listening To"), SerializeField]
         private PlayerDied playerDied;
@@ -58,7 +62,7 @@ namespace GameManagement
         private void SetupPreGame()
         {
             fingerUp.UnSubscribe(SetupPreGame);
-            fingerUp.Subscribe(SetupInGame);
+            StartCoroutine(EnableInputAfterDelay(SetupInGame));
             playerData.RestartPlayerValues();
             gameToStartScreen.Invoke();
         }
@@ -75,7 +79,7 @@ namespace GameManagement
         {
             isGameRunning = false;
             gameEnded.Invoke();
-            fingerUp.Subscribe(SetupPreGame);
+            StartCoroutine(EnableInputAfterDelay(SetupPreGame));
         }
 
         private void AssignEvents()
@@ -86,6 +90,12 @@ namespace GameManagement
         private void UnAssignEvents()
         {
             playerDied.UnSubscribe(SetupPostGame);
+        }
+
+        private IEnumerator EnableInputAfterDelay(Action onInput)
+        {
+            yield return new WaitForSeconds(inputDelay);
+            fingerUp.Subscribe(onInput);
         }
 
         #endregion

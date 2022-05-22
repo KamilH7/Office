@@ -7,14 +7,25 @@ namespace PowerUpSystem.PowerUps
 {
     public abstract class BasePowerUpController : MonoBehaviour, IShootable, ISlottable
     {
+        #region Serialized Fields
+
         [SerializeField]
-        private Transform powerUpTransform;
-        
+        protected Transform powerUpTransform;
+
+        #endregion
+
+        #region Public Properties
+
+        public Action ExitSlot { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
         public virtual void HitByBullet(float damage)
         {
         }
 
-        public Action ExitSlot { get; set; }
         public virtual void AssignSlot(Transform slotTransform)
         {
             powerUpTransform.parent = slotTransform;
@@ -22,5 +33,7 @@ namespace PowerUpSystem.PowerUps
             powerUpTransform.rotation = slotTransform.rotation;
             powerUpTransform.localPosition = Vector3.zero;
         }
+
+        #endregion
     }
 }
