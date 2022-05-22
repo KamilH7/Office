@@ -1,17 +1,13 @@
 ﻿using System;
 using Player;
+using Player.Shooting;
+using SlotSystem;
 using UnityEngine;
 
 namespace EnemySystem
 {
-    public abstract class BaseEnemyController : MonoBehaviour
+    public abstract class BaseEnemyController : MonoBehaviour, IShootable, ISlottable
     {
-        #region Events
-
-        public event Action OnReleasedFromCurrentSpot;
-
-        #endregion
-
         #region Serialized Fields
 
         [Header("Base Settings"), SerializeField]
@@ -33,6 +29,12 @@ namespace EnemySystem
 
         #endregion
 
+        #region Public Properties
+
+        public Action ExitSlot { get; set; }
+
+        #endregion
+
         #region Unity Callbacks
 
         protected virtual void Update()
@@ -50,29 +52,23 @@ namespace EnemySystem
 
         #region Public Methods
 
-        public virtual void HitByPlayer(float damage)
-        {
-            playerData.AddScore(scoreForShooting);
-            FreeCurrentSlot();
-            Destroy(gameObject);
-        }
-
         public virtual void Initialize(float difficulty)
         {
         }
 
-        public void FreeCurrentSlot()
-        {
-            OnReleasedFromCurrentSpot?.Invoke();
-        }
-
-        public void PositionEnemy(Transform newTransform)
+        public void AssignSlot(Transform newTransform)
         {
             enemyTransform.parent = newTransform;
             enemyTransform.forward = newTransform.forward;
             enemyTransform.rotation = newTransform.rotation;
-
             enemyTransform.localPosition = Vector3.zero;
+        }
+
+        public virtual void HitByBullet(float damage)
+        {
+            playerData.AddScore(scoreForShooting);
+            ExitSlot.Invoke();
+            Destroy(gameObject);
         }
 
         #endregion

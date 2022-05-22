@@ -1,35 +1,35 @@
 ﻿using Game.Events;
 using GameManagement;
+using PowerUpSystem.PowerUps;
 using SlotSystem;
 using UnityEngine;
+using Random = System.Random;
 
-namespace EnemySystem.Spawning
+namespace PowerUpSystem.Spawning
 {
-    public class EnemySpawner : MonoBehaviour
+    public class PowerUpSpawner : MonoBehaviour
     {
         #region Serialized Fields
 
         [SerializeField]
-        private float baseSpawnTimer = 5;
+        private int spawnTimerMin;
         [SerializeField]
-        private float difficultyIncreaseRate = 0.001f;
+        private int spawnTimerMax;
         [SerializeField]
         private SlotManager slotManager;
         [SerializeField]
-        private EnemySpawnTable enemySpawnTable;
+        private PowerUpSpawnTable powerUpSpawnTable;
 
         [SerializeField, Header("Listening To")]
-        private RequestNewSlot requestNewSlot;
-        [SerializeField]
         private GameEnded gameEnded;
 
         #endregion
 
         #region Private Fields
 
-        private float currentDifficulty = 1;
-        private float currentSpawnTimer;
         private float timer;
+        private float randomTimer;
+        private Random random;
 
         #endregion
 
@@ -38,6 +38,7 @@ namespace EnemySystem.Spawning
         private void OnEnable()
         {
             AssignCallbacks();
+            random = new Random();
         }
 
         private void OnDisable()
@@ -54,15 +55,13 @@ namespace EnemySystem.Spawning
         {
             if (GameLoop.isGameRunning)
             {
-                currentDifficulty += currentDifficulty * difficultyIncreaseRate * Time.deltaTime;
-
                 timer += Time.deltaTime;
 
-                if (timer >= currentSpawnTimer)
+                if (timer >= randomTimer)
                 {
-                    TrySpawnEnemy();
+                    TrySpawnPowerUp();
                     timer = 0;
-                    currentSpawnTimer = baseSpawnTimer / currentDifficulty;
+                    randomTimer = random.Next(spawnTimerMin, spawnTimerMax);
                 }
             }
         }
@@ -74,43 +73,28 @@ namespace EnemySystem.Spawning
         private void ResetValues()
         {
             timer = 0;
-            currentDifficulty = 1;
-            currentSpawnTimer = baseSpawnTimer;
+            randomTimer = random.Next(spawnTimerMin, spawnTimerMax);
             slotManager.ClearAllSlots();
         }
 
-        private void TrySpawnEnemy()
+        private void TrySpawnPowerUp()
         {
             SpawnSlot spawnSlot = slotManager.TryGetRandomAvailableSpawnSlot();
 
             if (spawnSlot)
             {
-                BaseEnemyController enemy = Instantiate(enemySpawnTable.GetRandomEnemyPrefab());
-                spawnSlot.Assign(enemy);
-                enemy.Initialize(currentDifficulty);
-            }
-        }
-
-        private void RepositionEnemy(ISlottable invokerEnemy)
-        {
-            SpawnSlot spawnSlot = slotManager.TryGetRandomAvailableSpawnSlot();
-
-            if (spawnSlot)
-            {
-                invokerEnemy.ExitSlot.Invoke();
-                spawnSlot.Assign(invokerEnemy);
+                BasePowerUpController powerUp = Instantiate(powerUpSpawnTable.GetRandomPowerUpPrefab());
+                spawnSlot.Assign(powerUp);
             }
         }
 
         private void AssignCallbacks()
         {
-            requestNewSlot.Subscribe(RepositionEnemy);
             gameEnded.Subscribe(ResetValues);
         }
 
         private void UnAssignCallbacks()
         {
-            requestNewSlot.UnSubscribe(RepositionEnemy);
             gameEnded.UnSubscribe(ResetValues);
         }
 

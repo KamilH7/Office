@@ -1,4 +1,4 @@
-﻿using EnemySystem.Slots;
+﻿using SlotSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +35,7 @@ namespace EnemySystem.Enemies
 
         #region Public Methods
 
-        public override void HitByPlayer(float damage)
+        public override void HitByBullet(float damage)
         {
             currentHealth -= damage;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -44,7 +44,6 @@ namespace EnemySystem.Enemies
 
             if (currentHealth == 0)
             {
-                FreeCurrentSlot();
                 Destroy(gameObject);
                 playerData.AddScore(scoreForShooting);
             }

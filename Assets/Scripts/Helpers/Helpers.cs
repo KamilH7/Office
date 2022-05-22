@@ -6,13 +6,13 @@ namespace Helpers
     {
         #region Private Fields
 
-        private static readonly string EnemyTag = "Enemy";
+        private static readonly string ShootableTag = "Shootable";
 
         #endregion
 
         #region Public Methods
 
-        public static bool IsEnemy(this Component component) => component.CompareTag(EnemyTag);
+        public static bool IsShootable(this Component component) => component.CompareTag(ShootableTag);
 
         #endregion
     }

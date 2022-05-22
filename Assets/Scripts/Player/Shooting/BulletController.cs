@@ -1,5 +1,4 @@
-﻿using EnemySystem;
-using Helpers;
+﻿using Helpers;
 using UnityEngine;
 
 namespace Player.Shooting
@@ -40,9 +39,9 @@ namespace Player.Shooting
         {
             BulletHit();
 
-            if (other.IsEnemy())
+            if (other.IsShootable())
             {
-                other.GetComponent<BaseEnemyController>().HitByPlayer(playerData.CurrentDamage);
+                other.GetComponent<IShootable>().HitByBullet(playerData.CurrentDamage);
             }
         }
 
