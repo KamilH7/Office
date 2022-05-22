@@ -8,6 +8,7 @@ namespace GameCamera
         #region Public Properties
 
         public Vector3 CameraPointingDirection { get; private set; }
+        public Camera CameraReference { get; private set; }
 
         #endregion
 
@@ -16,6 +17,11 @@ namespace GameCamera
         public void UpdateCameraPointingDirection(Vector3 newPointingDirection)
         {
             CameraPointingDirection = newPointingDirection;
+        }
+
+        public void SetCameraReference(Camera camera)
+        {
+            CameraReference = camera;
         }
 
         #endregion

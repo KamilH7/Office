@@ -45,6 +45,7 @@ namespace EnemySystem.Enemies
             if (currentHealth == 0)
             {
                 Destroy(gameObject);
+                ExitSlot.Invoke();
                 playerData.AddScore(scoreForShooting);
             }
             else

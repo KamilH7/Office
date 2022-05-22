@@ -13,6 +13,7 @@ namespace Helpers
         #region Public Methods
 
         public static bool IsShootable(this Component component) => component.CompareTag(ShootableTag);
+        public static bool IsInRange(this float value, float min, float max) => value >= min && value <= max;
 
         #endregion
     }
