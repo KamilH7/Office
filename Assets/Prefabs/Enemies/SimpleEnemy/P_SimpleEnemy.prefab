@@ -123,9 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbb6050e4b09274d8de40c3dbe33b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamageTimer: 2
-  baseDamage: 5
-  scoreForShooting: 2
+  baseDamageTimer: 4
+  baseDamage: 2
+  scoreForShooting: 1
   enemyTransform: {fileID: 5152779846345348157}
   playerData: {fileID: 11400000, guid: 7ca9f005ceacae84bb0ce066090eabe3, type: 2}
 --- !u!65 &2339807501910290005
