@@ -1,5 +1,4 @@
-﻿using GameCamera;
-using GameManagement;
+﻿using GameManagement;
 using InputSystem.Events;
 using Player.Shooting;
 using UnityEngine;
@@ -9,12 +8,10 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         #region Serialized Fields
-
+        
         [SerializeField]
-        private BulletController bulletPrefab;
-        [SerializeField]
-        private GameCameraData gameCameraData;
-
+        private GunController gunController;
+        
         [Header("Listening To:"), SerializeField]
         private FingerDown fingerDown;
 
@@ -36,23 +33,22 @@ namespace Player
 
         #region Private Methods
 
-        private void Shoot()
+        private void InputDetected()
         {
             if (GameLoop.isGameRunning)
             {
-                BulletController bullet = Instantiate(bulletPrefab);
-                bullet.Initialize(transform.position, gameCameraData.CameraPointingDirection);
+               gunController.Shoot();
             }
         }
 
         private void AssignEvents()
         {
-            fingerDown.Subscribe(Shoot);
+            fingerDown.Subscribe(InputDetected);
         }
 
         private void UnAssignEvents()
         {
-            fingerDown.UnSubscribe(Shoot);
+            fingerDown.UnSubscribe(InputDetected);
         }
 
         #endregion
